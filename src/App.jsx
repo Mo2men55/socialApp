@@ -10,7 +10,10 @@ import Notfound from './Components/Notfound/Notfound'
 import { AuthContextProvider } from './context/AuthContext'
 import ProtectAuth from './ProtectAuth/ProtectAuth'
 import ProtectRouter from './ProtectRouter/ProtectRouter'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+
+const queryClient= new QueryClient()
 function App() {
   let route = createBrowserRouter([
     {
@@ -28,10 +31,13 @@ function App() {
 
   return (
     <>
+    <QueryClientProvider client={queryClient}>
+
     <AuthContextProvider>
       <RouterProvider  router={route}/>
     </AuthContextProvider>
-     
+    
+    </QueryClientProvider>
     </>
   )
 }
