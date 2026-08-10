@@ -1,4 +1,5 @@
 // import React from 'react'
+import { Link } from 'react-router-dom';
 import CommentCard from './../CommentCard/CommentCard';
 
 export default function PosrCard({post}) {
@@ -7,6 +8,7 @@ export default function PosrCard({post}) {
   return <>
  {/* Example Post */}
 <div className="bg-white p-4 rounded shadow w-1/2 mx-auto mb-5 mt-3">
+<Link to={`/postDetailes/${post.id}`}>
   <header className="flex items-center space-x-3 mb-3">
     <img src={post.user.photo} className='h-10 w-10 rounded-full' alt={post.user.name} />
     <div>
@@ -14,6 +16,7 @@ export default function PosrCard({post}) {
       <p className="text-xs text-gray-500">{post.createdAt}</p>
     </div>
   </header>
+</Link>
 {post.body &&   <p className="mb-3"> {post.body}</p>}
 {post.image &&   <img src={post.image} alt={post.pody} className="rounded max-h-96 w-full object-cover mb-3" />}
   <div className="flex justify-between text-gray-600 text-sm font-semibold">

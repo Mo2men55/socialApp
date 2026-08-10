@@ -11,6 +11,7 @@ import { AuthContextProvider } from './context/AuthContext'
 import ProtectAuth from './ProtectAuth/ProtectAuth'
 import ProtectRouter from './ProtectRouter/ProtectRouter'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import PostDetails from './Components/PostDetails/PostDetails'
 
 
 const queryClient= new QueryClient()
@@ -22,6 +23,8 @@ function App() {
         { path: 'register', element: <ProtectAuth><Register /></ProtectAuth> },
         { path: 'profile', element: <ProtectRouter ><Profile /></ProtectRouter> },
         { path: 'home', element: <ProtectRouter><Home /></ProtectRouter> },
+        { path: 'postDetailes/:id', element: <ProtectRouter><PostDetails /></ProtectRouter> },
+
         { path: '*', element: <Notfound /> },
 
 
