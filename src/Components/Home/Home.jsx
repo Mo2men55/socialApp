@@ -3,15 +3,18 @@ import axios from "axios"
 import Spinner from "../Spinner/Spinner"
 import PosrCard from "../PosrCard/PosrCard"
 import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 
 
 
 export default function Home() {
  
-
+  const [Home, setHome] = useState(true)
   function getAllPosts() {
     return axios.get('https://route-posts.routemisr.com/posts', {
-      params: {},
+      params: {
+        sort: 'createdAt',
+      },
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -37,7 +40,7 @@ export default function Home() {
   }
   return <>
 
-    {data?.map((post) => { return <PosrCard key={post._id} post={post} /> })}
+    {data?.map((post) => { return <PosrCard key={post._id} Home={Home} post={post} /> })}
 
   </>
 }

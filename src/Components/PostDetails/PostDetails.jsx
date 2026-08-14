@@ -37,7 +37,7 @@ export default function PostDetails() {
     }
     return (
         <>
-        <PosrCard post={data}/>
+        <PosrCard Home={false} post={data}/>
         </>
     )
 }
