@@ -7,12 +7,20 @@ export function AuthContextProvider({ children }) {
     const [userToken, setUserToken] = useState(null)
     const [userData, setuserData] = useState(null)
     async function getUserData() {
-        let { data } = await axios.get('https://route-posts.routemisr.com/users/profile-data', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+        try {
+            let { data } = await axios.get('https://route-posts.routemisr.com/users/profile-data', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            setuserData(data.data.user)
+        } catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem('token')
+                setUserToken(null)
+                setuserData(null)
             }
-        })
-        setuserData(data.data.user)
+        }
     }
 
     useEffect(() => {
@@ -23,7 +31,7 @@ export function AuthContextProvider({ children }) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ userToken, setUserToken, userData, setuserData }}>
+        <AuthContext.Provider value={{ userToken, setUserToken, userData, setuserData, getUserData }}>
             {children}
         </AuthContext.Provider>
     )

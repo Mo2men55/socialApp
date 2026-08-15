@@ -10,7 +10,7 @@ import { AuthContext } from "../../Context/AuthContext";
 
 
 export default function Register() {
-  let { setUserToken } = useContext(AuthContext)
+  let { setUserToken, getUserData } = useContext(AuthContext)
   let navigate = useNavigate();
   const [isLoadig, setisLoadig] = useState(false)
   const { register, handleSubmit, formState } = useForm({
@@ -25,7 +25,7 @@ export default function Register() {
   function submitForm(data) {
     setisLoadig(true);
     axios.post('https://route-posts.routemisr.com/users/signin', data)
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
 
 
@@ -37,6 +37,7 @@ export default function Register() {
           });
           setUserToken(response.data.data.token)
           localStorage.setItem('token', response.data.data.token);
+          await getUserData()
           navigate('/profile');
         }
       }

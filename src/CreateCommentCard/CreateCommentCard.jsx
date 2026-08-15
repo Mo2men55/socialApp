@@ -19,7 +19,7 @@ export default function CreateCommentCard({ postId, queryKey }) {
   function createCommentFunc() {
     return axios.post(`https://route-posts.routemisr.com/posts/${postId}/comments`, formData, {
       headers: {
-        Authorization: ` Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
 
       }
     })
@@ -41,7 +41,6 @@ export default function CreateCommentCard({ postId, queryKey }) {
     }
   })
 
-  console.log(data);
 
   function handleCreateComment(data) {
 

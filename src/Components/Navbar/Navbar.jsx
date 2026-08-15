@@ -61,7 +61,7 @@ export default function Navbar() {
           <span  onClick={logOut} className="block cursor-pointer py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Logout</span>
         </li>
        <li>
-          <span  className="block cursor-pointer py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page"> Welcome: {userData?.name}</span>
+          <NavLink to='/profile' className="block cursor-pointer py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page"> Welcome: {userData?.name}</NavLink>
         </li>
      </>}
         

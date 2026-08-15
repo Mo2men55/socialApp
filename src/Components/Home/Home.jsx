@@ -4,17 +4,18 @@ import Spinner from "../Spinner/Spinner"
 import PosrCard from "../PosrCard/PosrCard"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import { Navigate } from "react-router-dom"
 import CreatePostCard from "../../CreatePostCard/CreatePostCard"
 
 
 
 export default function Home() {
  
-  const [Home, setHome] = useState(true)
+  const [Home] = useState(true)
   function getAllPosts() {
     return axios.get('https://route-posts.routemisr.com/posts', {
       params: {
-        sort: 'createdAt',
+        sort: '-createdAt',
       },
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -35,8 +36,13 @@ export default function Home() {
   }
 
   if (isError) {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem('token')
+      return <Navigate to="/" replace />
+    }
+
     return <div className='h-screen flex justify-center items-center'>
-      <h2>{error}</h2>
+      <h2>{error?.message || 'Something went wrong'}</h2>
     </div>
   }
   return <>

@@ -1,9 +1,9 @@
-
-import  axios  from 'axios';
+import axios from 'axios';
 import { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../Context/AuthContext';
 import Spinner from '../Spinner/Spinner';
+import PosrCard from '../PosrCard/PosrCard';
 
 
 export default function Profile() {
@@ -12,29 +12,29 @@ export default function Profile() {
   function getProfilePosts() {
     return axios.get(`https://route-posts.routemisr.com/users/${userData._id}/posts`, {
       headers: {
-        Authorization: ` Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
   }
 
-  const { data, isLoading, error ,isError } = useQuery({
+  console.log(userData);
+  
+  const { data, isLoading, error, isError } = useQuery({
     queryKey: ['getProfilePost'],
-    queryFn: getProfilePosts
+    queryFn: getProfilePosts,
+    enabled: !!userData?._id,
+    select: (data) => data?.data?.data?.posts
   })
 
-  console.log(data?.data.data.posts);
+  if (isLoading || !userData) {
+    return <Spinner />
+  }
 
-    if (isLoading) {
-      return <Spinner />
-    }
-  
-    if (isError) {
-      return <div className='h-screen flex justify-center items-center'>
-        <h2>{error}</h2>
-      </div>
-    }
-
-
+  if (isError) {
+    return <div className='h-screen flex justify-center items-center'>
+      <h2>{error.message}</h2>
+    </div>
+  }
 
   return <>
     <div className="relative w-1/2 mx-auto mt-5 bg-white shadow-xl rounded-lg overflow-hidden animate-fade-in">
@@ -56,7 +56,7 @@ export default function Profile() {
         {/* Optional: Social Links or Stats */}
         <div className="flex justify-center mt-6 space-x-4 border-t pt-6 border-gray-100">
           <div className="text-center">
-            <p className="font-bold text-lg text-gray-800">1.2K</p>
+            <p className="font-bold text-lg text-gray-800">{userData?.followers.length}</p>
             <p className="text-gray-500 text-sm">Followers</p>
           </div>
           <div className="text-center">
@@ -79,8 +79,7 @@ export default function Profile() {
 
 
     <div className='mt-4'>
-      {data?.data.data.posts.map((post) => { return <PosrCard post={post} /> })}
-
+      {data?.map((post) => <PosrCard key={post._id || post.id} post={post} />)}
     </div>
 
 
