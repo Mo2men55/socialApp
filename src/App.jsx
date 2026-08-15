@@ -7,7 +7,7 @@ import Register from './Auth/Register/Register'
 import Profile from './Components/Profile/Profile'
 import Home from './Components/Home/Home'
 import Notfound from './Components/Notfound/Notfound'
-import { AuthContextProvider } from './context/AuthContext'
+import { AuthContextProvider } from './Context/AuthContext'
 import ProtectAuth from './ProtectAuth/ProtectAuth'
 import ProtectRouter from './ProtectRouter/ProtectRouter'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -34,13 +34,13 @@ function App() {
 
   return (
     <>
+        <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
 
-        <AuthContextProvider>
           <RouterProvider router={route} />
         <ToastContainer />
-        </AuthContextProvider>
       </QueryClientProvider>
+        </AuthContextProvider>
     </>
   )
 }

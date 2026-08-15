@@ -29,17 +29,14 @@ export default function CreateCommentCard({ postId, queryKey }) {
     mutationFn: createCommentFunc,
 
     onSuccess: () => {
-      console.log('comment Created Successfully');
       reset()
-      toast.success('comment Created Successfully', {
-
-      })
+      toast.success('comment Created Successfully', {})
       query.invalidateQueries({ queryKey: [queryKey] })
 
 
     },
     onError: () => {
-      console.log('cannot Creat Comment ');
+     
       toast.error('cannot Creat Comment ')
     }
   })

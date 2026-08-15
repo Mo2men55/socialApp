@@ -1,11 +1,11 @@
 import { useContext, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
-import { AuthContext } from "../../context/AuthContext"
+import { AuthContext } from "../../Context/AuthContext"
 
 
 export default function Navbar() {
   let navigate = useNavigate()
-  let { userToken, setuserToken } = useContext(AuthContext)
+  let { userToken, setuserToken, userData } = useContext(AuthContext)
   const [isOpen, setisOpen] = useState(false)
   function toggleNav() {
     setisOpen(!isOpen)
@@ -56,9 +56,14 @@ export default function Navbar() {
          <li>
           <NavLink to='/' className="block py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Login</NavLink>
         </li>
-     </> :  <li>
+     </> : <>
+      <li>
           <span  onClick={logOut} className="block cursor-pointer py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Logout</span>
-        </li>}
+        </li>
+       <li>
+          <span  className="block cursor-pointer py-2 px-3 text-black bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page"> Welcome: {userData?.name}</span>
+        </li>
+     </>}
         
       
       

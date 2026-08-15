@@ -4,6 +4,7 @@ import Spinner from "../Spinner/Spinner"
 import PosrCard from "../PosrCard/PosrCard"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import CreatePostCard from "../../CreatePostCard/CreatePostCard"
 
 
 
@@ -39,7 +40,7 @@ export default function Home() {
     </div>
   }
   return <>
-
+  <CreatePostCard/>
     {data?.map((post) => { return <PosrCard key={post._id} Home={Home} post={post} /> })}
 
   </>
