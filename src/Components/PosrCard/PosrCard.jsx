@@ -4,6 +4,8 @@ import CommentCard from './../CommentCard/CommentCard';
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import CreateCommentCard from './../../CreateCommentCard/CreateCommentCard';
+
 
 export default function PosrCard({ post, Home = true }) {
 
@@ -19,9 +21,10 @@ export default function PosrCard({ post, Home = true }) {
     queryFn: GetPosts,
     select: (data) => {
       return data?.data.data.comments
-    }
+    },
+    enabled: !Home
   })
-  console.log(data);
+
 
   //  post.topComment=null | obj
   return <>
@@ -48,9 +51,11 @@ export default function PosrCard({ post, Home = true }) {
         <button className="flex items-center space-x-1 hover:text-blue-600">
           <i className="fas fa-share" /><span>{post.sharesCount <= 0 ? '' : post.sharesCount} Share</span>
         </button>
-      </div>
 
-      {Home === false && data.map((comment) => <CommentCard key={comment._id} comment={comment} />)}
+      </div>
+         <CreateCommentCard postId={post.id} queryKey={!Home?['getPostComments']:['getPost']}/>
+
+      {Home === false && data && data.map((comment) => <CommentCard key={comment._id} comment={comment} />)}
 
       {Home && post.topComment && <CommentCard comment={post.topComment} />}
     </div>

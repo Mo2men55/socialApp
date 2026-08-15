@@ -12,14 +12,14 @@ import ProtectAuth from './ProtectAuth/ProtectAuth'
 import ProtectRouter from './ProtectRouter/ProtectRouter'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import PostDetails from './Components/PostDetails/PostDetails'
+import { ToastContainer } from 'react-toastify';
 
-
-const queryClient= new QueryClient()
+const queryClient = new QueryClient()
 function App() {
   let route = createBrowserRouter([
     {
       path: '', element: <Layout />, children: [
-        { index:'true', element: <ProtectAuth><Login /></ProtectAuth> },
+        { index: 'true', element: <ProtectAuth><Login /></ProtectAuth> },
         { path: 'register', element: <ProtectAuth><Register /></ProtectAuth> },
         { path: 'profile', element: <ProtectRouter ><Profile /></ProtectRouter> },
         { path: 'home', element: <ProtectRouter><Home /></ProtectRouter> },
@@ -34,13 +34,13 @@ function App() {
 
   return (
     <>
-    <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
 
-    <AuthContextProvider>
-      <RouterProvider  router={route}/>
-    </AuthContextProvider>
-    
-    </QueryClientProvider>
+        <AuthContextProvider>
+          <RouterProvider router={route} />
+        <ToastContainer />
+        </AuthContextProvider>
+      </QueryClientProvider>
     </>
   )
 }
