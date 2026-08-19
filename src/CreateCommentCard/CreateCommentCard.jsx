@@ -25,13 +25,13 @@ export default function CreateCommentCard({ postId, queryKey }) {
     })
   }
 
-  const { data, isPending, error, isError, mutate } = useMutation({
+  const {  isPending, mutate } = useMutation({
     mutationFn: createCommentFunc,
 
     onSuccess: () => {
       reset()
       toast.success('comment Created Successfully', {})
-      query.invalidateQueries({ queryKey: [queryKey] })
+      query.invalidateQueries({ queryKey: ['getComments', postId] })
 
 
     },

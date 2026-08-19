@@ -66,7 +66,7 @@ export default function PosrCard({ post, Home = true }) {
   return <>
     {/* Example Post */}
     <div className="bg-white p-4 rounded shadow w-1/2 mx-auto mb-5 mt-3">
-      
+
         <header  className="flex items-center justify-between space-x-3 mb-3" >
           <Link to={`/postDetailes/${postId}`} className="flex items-center space-x-3 mb-3" >
           <img src={post.user.photo} className='h-10 w-10 rounded-full' alt={post.user.name} />
@@ -103,9 +103,9 @@ export default function PosrCard({ post, Home = true }) {
       </div>
       <CreateCommentCard postId={postId} queryKey={!Home ? ['getPostComments'] : ['getPost']} />
 
-      {Home === false && data && data.map((comment) => <CommentCard key={comment._id} comment={comment} />)}
+      {Home === false && data && data.map((comment) => <CommentCard key={comment._id} postId={postId} comment={comment} />)}
 
-      {Home && post.topComment && <CommentCard comment={post.topComment} />}
+      {Home && post.topComment && <CommentCard postId={postId} comment={post.topComment} />}
     </div>
 
 
